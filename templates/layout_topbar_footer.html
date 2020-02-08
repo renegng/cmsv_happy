@@ -1,0 +1,217 @@
+{% extends 'layout_main.html' %} {% block topbar %}
+<header class="s-header mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <button class="menu mdc-top-app-bar__navigation-icon mdc-icon-button">
+                <i class="material-icons mdc-icon-button__icon">menu</i>
+            </button>
+            <span class="mdc-top-app-bar__title topAppBar-title">
+                <a href="/">HappY</a>
+            </span>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+            <div class="mdc-menu-surface--anchor">
+                <button id="shareButton" class="mdc-top-app-bar__action-item mdc-icon-button"
+                    aria-label="Share" alt="Share">
+                    <i class="material-icons mdc-icon-button__icon">share</i>
+                </button>
+                <div id="shareMenu" class="mdc-menu mdc-menu-surface" tabindex="-1">
+                    <ul class="mdc-list mdc-menu__items" role="menu" aria-hidden="true">
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                            <i class="classic-color-em material-icons mdc-list-item__graphic"
+                                aria-hidden="true">email</i>
+                            Email
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                            <i class="classic-color-fb mdc-list-item__graphic fa fa-facebook" aria-hidden="true"></i>
+                            Facebook
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                            <i class="classic-color-li mdc-list-item__graphic fa fa-linkedin" aria-hidden="true"></i>
+                            LinkedIn
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                            <i class="classic-color-tw mdc-list-item__graphic fa fa-twitter" aria-hidden="true"></i>
+                            Twitter
+                        </li>
+                        <li class="mdc-list-item" role="menuitem" tabindex="0">
+                            <i class="classic-color-wa mdc-list-item__graphic fa fa-whatsapp" aria-hidden="true"></i>
+                            WhatsApp
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 
+            <button id="loginButton" class="mdc-button mdc-button--raised topAppBar-button" aria-label="Login" alt="Login">
+                Login
+            </button> 
+            -->
+        </section>
+    </div>
+</header>
+<aside class="s-nav mdc-drawer mdc-drawer--modal">
+    <div class="mdc-drawer__content">
+        <div class="mdc-drawer__header">
+            <img id="logo-nav-drawer" src="{{ url_for('static', filename='images/manifest/HappY.svg') }}"
+                alt="Logo HappY" />
+            <h3 class="mdc-drawer__title">HappY</h3>
+            <h6 class="mdc-drawer__subtitle">Ciudad Mujer El Salvador</h6>
+        </div>
+        <nav class="mdc-drawer__list mdc-list">
+            <a class="mdc-list-item" href="/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">360</i>Entrada
+            </a>
+            <a class="mdc-list-item" href="/recepcion/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Recepción
+            </a>
+            <a class="mdc-list-item" href="/orientacion/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">emoji_people</i>Oficinas de Orientación
+            </a>
+            <a class="mdc-list-item" href="/jardin/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_florist</i>Jardín
+            </a>
+            <a class="mdc-list-item" href="/recreo/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">deck</i>Zona de Recreo
+            </a>
+            <a class="mdc-list-item" href="/cafeteria/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_cafe</i>Cafetería
+            </a>
+            <hr class="mdc-list-divider s-mdc-list-divider">
+            <a class="mdc-list-item" href="/autonomia-economica/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">poll</i>Autonomía Económica
+            </a>
+            <a class="mdc-list-item" href="/clases-computacion/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Clases de Computación
+            </a>
+            <a class="mdc-list-item" href="/cursos-agricultura/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Cursos de Agricultura
+            </a>
+            <a class="mdc-list-item" href="/cursos-cocina/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Cursos de Cocina
+            </a>
+            <a class="mdc-list-item" href="/taller-alta-costura/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Taller de Alta Costura
+            </a>
+            <a class="mdc-list-item" href="/taller-emprendedurismo/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Taller de Emprendedurismo
+            </a>
+            <hr class="mdc-list-divider s-mdc-list-divider">
+            <a class="mdc-list-item" href="/salud-sexual-reproductiva/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_hospital</i>Salud Sexual y Reproductiva
+            </a>
+            <a class="mdc-list-item" href="/laboratorio-clinico/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Laboratorio Clínico
+            </a>
+            <a class="mdc-list-item" href="/ultrasonidos/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Ultrasonidos
+            </a>
+            <hr class="mdc-list-divider s-mdc-list-divider">
+            <a class="mdc-list-item" href="/violencia-genero/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">warning</i>Atención a la Violencia de Género
+            </a>
+            <a class="mdc-list-item" href="/arte-terapia/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Arte y Terapia
+            </a>
+            <hr class="mdc-list-divider s-mdc-list-divider">
+            <a class="mdc-list-item" href="/atencion-infantil/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">child_care</i>Atención Infantil
+            </a>
+            <a class="mdc-list-item" href="/sala-cuna/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Sala Cuna
+            </a>
+            <a class="mdc-list-item" href="/sala-a/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Sala A: de 3 a 6 años
+            </a>
+            <a class="mdc-list-item" href="/sala-b/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">chevron_right</i>Sala B: de 7 a 12 años
+            </a>
+            <hr class="mdc-list-divider s-mdc-list-divider">
+            <a class="mdc-list-item" href="/acercade/">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">info</i>Acerca de...
+            </a>
+        </nav>
+    </div>
+</aside>
+<div class="mdc-drawer-scrim"></div>
+{% endblock %} {% block bottombar %}{% endblock %} {% block footer %}
+<div class="mdc-snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+    <div class="mdc-snackbar__surface">
+        <div class="mdc-snackbar__label" role="status" aria-live="polite"></div>
+        <div class="mdc-snackbar__actions">
+            <button type="button" class="mdc-button mdc-snackbar__action"></button>
+        </div>
+    </div>
+</div>
+<footer class="s-footer">
+    <section class="footer-about">
+        <div class="footer-section__title">
+            Ciudad Mujer
+        </div>
+        <div class="footer-about__text">
+            Contribuye a mejorar las condiciones de vida de las mujeres salvadoreñas, mediante la facilitación de
+            servicios que satisfagan sus necesidades básicas e intereses estratégicos.
+        </div>
+        <span class="footer-about__author">
+            Gobierno de El Salvador
+        </span>
+    </section>
+    <!-- <section class="footer-followus">
+        <div class="footer-section__title">
+            Sigue conectado con nosotros
+        </div>
+        <div class="footer-followus__list">
+            <ul class="mdc-list" aria-orientation="vertical" aria-hidden="true">
+                <li class="mdc-list-item">
+                    <a href="https://www.facebook.com/ciudadmujerSV/" target="_blank" rel="external">
+                        <i class="mdc-list-item__graphic fa fa-facebook" aria-hidden="true"></i>
+                        Facebook
+                    </a>
+                </li>
+                <li class="mdc-list-item">
+                    <a href="https://twitter.com/SecInclusionSV" target="_blank" rel="external">
+                        <i class="mdc-list-item__graphic fa fa-twitter" aria-hidden="true"></i>
+                        Twitter
+                    </a>
+                </li>
+                <li class="mdc-list-item">
+                    <a href="https://www.youtube.com/playlist?list=PLO4x3PeAYpSHW7W1Y7-9jWkCqZbakrjqv" target="_blank"
+                        rel="external">
+                        <i class="mdc-list-item__graphic fa fa-youtube" aria-hidden="true"></i>
+                        YouTube
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section> -->
+    <section class="footer-contactus">
+        <div class="footer-section__title">
+            Contáctanos
+        </div>
+        <div class="footer-contactus__list">
+            <ul class="mdc-list" aria-orientation="vertical" aria-hidden="true">
+                <!-- <li class="mdc-list-item">
+                    <a href="https://www.google.com/maps/search/Ciudad+Mujer/@13.7162107,-89.3177012,12z" target="_blank" rel="external">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>
+                        Encuéntranos en Google Maps
+                    </a>
+                </li> -->
+                <li class="mdc-list-item" itemscope itemtype="http://schema.org/LocalBusiness">
+                    <a href="tel:+50322442700" rel="external">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">phone</i>
+                        <span itemprop="telephone">+503 2244 2700</span>
+                    </a>
+                </li>
+                <li class="mdc-list-item">
+                    <a href="mailto:atencion@ciudadmujer.gob.sv" target="_blank" rel="external">
+                        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">email</i>
+                        atencion@ciudadmujer.gob.sv
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="footer-copyright">
+        Ciudad Mujer. Ciudad Mujer El Salvador. Derechos reservados | Diseñado por RXDBit
+    </section>
+</footer>
+{% endblock %}
