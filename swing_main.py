@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 from views.home import home as home_view
 from views.seo import seo as seo_view
 
@@ -7,6 +8,10 @@ app = Flask(__name__, instance_relative_config=True)
 
 # Configuration File From Instance Folder
 app.config.from_pyfile('config.py')
+app.config.from_pyfile('models_config.py')
+
+# Enable instance of SQLAlchemy
+db = SQLAlchemy(app)
 
 # Home
 app.register_blueprint(home_view)

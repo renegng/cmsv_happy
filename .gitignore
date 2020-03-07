@@ -175,3 +175,6 @@ static/css/compile_placeholder.js
 
 # js compiled bundle
 static/js/swing-bundle.js
+
+# Migrate-Alembic ini file
+alembic.ini
