@@ -50,6 +50,7 @@ To install Swing CMS, follow the next steps (under Ubuntu 16.04):
     ~: pip install psycopg2-binary
     ~: pip install flask-marshmallow
     ~: pip install mysqlclient
+    ~: pip install firebase-admin
     ~: deactivate
 
 5 - Install the appropriate plugin for Flash and Python to be executed on the web server:

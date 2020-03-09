@@ -1,7 +1,7 @@
 import { isNull } from 'util';
 
 // FirebaseUI config.
-var fbUIConfig = {
+var firebaseUIConfig = {
     signInSuccessUrl: '/home/',
     signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
@@ -18,11 +18,11 @@ var fbUIConfig = {
 };
 
 // Initialize the FirebaseUI Widget using Firebase.
-var fbUI = new firebaseui.auth.AuthUI(firebase.auth());
+var firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
 
 // The start method will wait until the DOM is loaded.
 if (!isNull(document.querySelector('#firebaseui-auth-container'))) {
-    fbUI.start('#firebaseui-auth-container', fbUIConfig);
+    firebaseUI.start('#firebaseui-auth-container', firebaseUIConfig);
 }
 
 // Track Auth State

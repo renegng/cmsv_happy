@@ -1,5 +1,8 @@
+import firebase_admin
+from firebase_admin import auth
+
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
+from models.models import db as db
 from views.home import home as home_view
 from views.seo import seo as seo_view
 
@@ -11,7 +14,10 @@ app.config.from_pyfile('config.py')
 app.config.from_pyfile('models_config.py')
 
 # Enable instance of SQLAlchemy
-db = SQLAlchemy(app)
+db.init_app(app)
+
+# Enable Firebase Admin
+fba = firebase_admin.initialize_app()
 
 # Home
 app.register_blueprint(home_view)
