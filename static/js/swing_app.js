@@ -314,21 +314,24 @@ function initSnackbar(initObject){
 // It has been configured, through swing_main.py to make it look like it is.
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', { scope: '/' })
-        .then(reg => {
-            // registration worked
-            console.log('Service Worker Registered. Scope is ' + reg.scope);
-        }).catch(error => {
-            // registration failed
-            console.log('Service Worker Registration Failed with ' + error);
-        });
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(reg => {
+                // registration worked
+                console.log('Service Worker Registered. Scope is ' + reg.scope);
+            }).catch(error => {
+                // registration failed
+                console.log('Service Worker Registration Failed with ' + error);
+            });
+    });
 }
 
 // Add to Homescreen (A2H) Event
 var deferredPrompt;
 var appIsInstalled = false;
 
-// Snackbar A2H init Object
+// Snackbar A2H Data for Install Event
 var installSBDataObj = {
     message: '¿Deseas Instalar nuestra App? (¡Gratis!)',
     actionText: 'Si',
@@ -351,9 +354,27 @@ var installSBDataObj = {
     }
 };
 
+// Snackbar Data for Update Website Event
+var updateSBDataObj = {
+    message: '¡Nuevo contenido disponible!. Click OK para actualizar.',
+    actionText: 'OK',
+    timeout: 20000,
+    actionHandler: () => {
+        console.log('Updating app...');
+        // Refresh the app
+        window.location.reload();
+    }
+};
+
 window.addEventListener('appinstalled', (evt) => {
     console.log('App is installed...');
     appIsInstalled = true;
+
+    // Detects an update for the app's content and prompts user to refresh
+    if (evt.isUpdate) {
+        initSnackbar(updateSBDataObj);
+        snackbar.open();
+    }
 });
 
 window.addEventListener('beforeinstallprompt', (e) => {

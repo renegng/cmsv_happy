@@ -1,7 +1,7 @@
 import firebase_admin
-from firebase_admin import auth
 
 from flask import Flask, render_template
+from flask_login import LoginManager
 from models.models import db as db
 from views.home import home as home_view
 from views.seo import seo as seo_view
@@ -9,8 +9,9 @@ from views.seo import seo as seo_view
 # Enables Instance Folder Configuration (instance_relative_config=True) 
 app = Flask(__name__, instance_relative_config=True)
 
-# Configuration File From Instance Folder
-app.config.from_pyfile('config.py')
+# Configuration Files From Instance Folder
+app.config.from_pyfile('app_config.py')
+app.config.from_pyfile('firebase_config.py')
 app.config.from_pyfile('models_config.py')
 
 # Enable instance of SQLAlchemy
@@ -18,6 +19,15 @@ db.init_app(app)
 
 # Enable Firebase Admin
 fba = firebase_admin.initialize_app()
+
+# Enable Flask-Login
+lim = LoginManager()
+lim.init_app(app)
+lim.login_view = 'welcome'
+
+@lim.user_loader
+def load_user(id):
+    pass
 
 # Home
 app.register_blueprint(home_view)

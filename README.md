@@ -44,13 +44,15 @@ To install Swing CMS, follow the next steps (under Ubuntu 16.04):
 4 - Within the activated virtual environment, install Flask and all PiP applications:
 
     ~: pip install wheel
+    ~: pip install firebase-admin
     ~: pip install flask
+    ~: pip install flask-login
+    ~: pip install flask-marshmallow
     ~: pip install flask-sqlalchemy
     ~: pip install flask-migrate
+    ~: pip install flask-wtf
     ~: pip install psycopg2-binary
-    ~: pip install flask-marshmallow
     ~: pip install mysqlclient
-    ~: pip install firebase-admin
     ~: deactivate
 
 5 - Install the appropriate plugin for Flash and Python to be executed on the web server:
@@ -90,7 +92,7 @@ Proper credit for the following people/teams:
 - Apache HTTPD, web server that never fails.
 - Google's Material Design, Workbox and Firebase team, for making the web awesome!
 - Polymer Project, for an amazing main HTML PWA Template structure.
-- Python, Flask, NodeJS, SQLAlchemy, Marshmallow, GitHub and everyone's amazing frameworks.
+- Python, Flask, NodeJS, SQLAlchemy, Migrate, Alembic, WTForms, Marshmallow, Login, GitHub and everyone's amazing frameworks.
 - Traversy Media, for incredible tips & tricks overall.
 - Visual Studio Code, for an incredible IDE.
 - Twitter Twemoji for the amazing emojis.

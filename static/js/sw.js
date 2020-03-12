@@ -13,17 +13,21 @@ const filesToPreCache = [
 ];
 
 // Importing Google's Workbox library for ServiceWorker implementation
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.0.0/workbox-sw.js');
 
 // Workbox Force Set Development/Production Builds 
 // Development = debug: true 
 // Production = debug: false
 workbox.setConfig({ debug: false });
 
+// Allows the ServiceWorker to update the app after user triggers refresh by updating it's lifecycle
+workbox.core.skipWaiting();
+workbox.core.clientsClaim();
+
 // Configuring Workbox
 workbox.core.setCacheNameDetails({
     prefix: 'cmsv-happy',
-    suffix: 'v2020-02-07-1',
+    suffix: 'v2020-03-12-1',
     precache: 'pre-cache',
     runtime: 'run-time',
     googleAnalytics: 'ga',
@@ -57,7 +61,7 @@ workbox.routing.registerRoute(
     new workbox.strategies.StaleWhileRevalidate({
         cacheName: 'cmsv-happy-img',
         plugins: [
-            new workbox.expiration.Plugin({
+            new workbox.expiration.ExpirationPlugin({
                 // Keep at most 60 entries.
                 maxEntries: 60,
                 // Don't keep any entries for more than 30 days.
