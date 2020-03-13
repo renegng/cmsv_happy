@@ -14,6 +14,7 @@ import { MDCTabScroller } from '@material/tab-scroller';
 import { MDCTextField } from '@material/textfield';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTopAppBar } from '@material/top-app-bar';
+import { Workbox } from 'workbox-window';
 import { isNull } from 'util';
 
 // Initialize AOS
@@ -301,11 +302,16 @@ if (!isNull(document.querySelector('.s-mdc-image-list__image'))) {
 }
 
 // Snackbar init function
-function initSnackbar(initObject){
-    snackbar.labelText = initObject.message;
-    snackbar.actionButtonText = initObject.actionText;
-    snackbar.setTimeoutMs = initObject.timeout;
-    snackbar.actionEl_.addEventListener('click', initObject.actionHandler );
+function initSnackbar(sb, initObject){
+    sb.labelText = initObject.message;
+    sb.actionButtonText = initObject.actionText;
+    sb.setTimeoutMs = initObject.timeout;
+    // sb.actionEl_.addEventListener('click', initObject.actionHandler );
+    sb.listen('MDCSnackbar:closed', (evt) => {
+        if (evt.detail.reason == 'action') {
+            initObject.actionHandler();
+        }
+    });
 }
 
 // Registering the service worker for the pwa
@@ -314,21 +320,21 @@ function initSnackbar(initObject){
 // It has been configured, through swing_main.py to make it look like it is.
 
 if ('serviceWorker' in navigator) {
-    // Use the window load event to keep the page load performant
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' })
-            .then(reg => {
-                // registration worked
-                console.log('Service Worker Registered. Scope is ' + reg.scope);
-            }).catch(error => {
-                // registration failed
-                console.log('Service Worker Registration Failed with ' + error);
-            });
+    const wb = new Workbox('/sw.js');
+    // Detects an update for the app's content and prompts user to refresh
+    wb.addEventListener('installed', event => {
+        if (event.isUpdate) {
+            console.log('App update found...');
+            initSnackbar(snackbar, updateSBDataObj);
+            snackbar.open();
+        }
     });
+    // Registers the Workbox Service Worker
+    wb.register();
 }
 
 // Add to Homescreen (A2H) Event
-var deferredPrompt;
+let deferredPrompt;
 var appIsInstalled = false;
 
 // Snackbar A2H Data for Install Event
@@ -369,12 +375,6 @@ var updateSBDataObj = {
 window.addEventListener('appinstalled', (evt) => {
     console.log('App is installed...');
     appIsInstalled = true;
-
-    // Detects an update for the app's content and prompts user to refresh
-    if (evt.isUpdate) {
-        initSnackbar(updateSBDataObj);
-        snackbar.open();
-    }
 });
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -385,7 +385,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
     // Show the Snackbar popup to Install
     if (!appIsInstalled) {
-        initSnackbar(installSBDataObj);
+        initSnackbar(snackbar, installSBDataObj);
         snackbar.open();
     }
 });
