@@ -14,7 +14,7 @@ import { MDCTabScroller } from '@material/tab-scroller';
 import { MDCTextField } from '@material/textfield';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTopAppBar } from '@material/top-app-bar';
-import { Workbox } from 'workbox-window';
+import { Workbox } from 'workbox-window/Workbox.mjs';
 import { isNull } from 'util';
 
 // Initialize AOS
@@ -306,7 +306,6 @@ function initSnackbar(sb, initObject){
     sb.labelText = initObject.message;
     sb.actionButtonText = initObject.actionText;
     sb.setTimeoutMs = initObject.timeout;
-    // sb.actionEl_.addEventListener('click', initObject.actionHandler );
     sb.listen('MDCSnackbar:closed', (evt) => {
         if (evt.detail.reason == 'action') {
             initObject.actionHandler();
@@ -320,7 +319,7 @@ function initSnackbar(sb, initObject){
 // It has been configured, through swing_main.py to make it look like it is.
 
 if ('serviceWorker' in navigator) {
-    const wb = new Workbox('/sw.js');
+    const wb = new Workbox('/sw.js', { scope: '/' });
     // Detects an update for the app's content and prompts user to refresh
     wb.addEventListener('installed', event => {
         if (event.isUpdate) {

@@ -35,6 +35,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "aos": "^2.3.4",
     "material-components-web": "^4.0.0",
     "workbox-window": "^5.0.0"
