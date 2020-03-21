@@ -5,14 +5,20 @@ var firebaseUIConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function(authResult, redirectUrl) {
             var user = authResult.user;
-            var credential = authResult.credential;
-            var isNewUser = authResult.additionalUserInfo.isNewUser;
-            var providerId = authResult.additionalUserInfo.providerId;
-            var operationType = authResult.operationType;
+            // var credential = authResult.credential;
+            // var isNewUser = authResult.additionalUserInfo.isNewUser;
+            // var providerId = authResult.additionalUserInfo.providerId;
+            // var operationType = authResult.operationType;
+            // 
             // Do something with the returned AuthResult.
             // Return type determines whether we continue the redirect automatically
             // or whether we leave that to developer to handle.
-            return true;
+
+            console.log('HERE WE GO!')
+            return user.getIdToken().then(idToken => {
+                const csrfToken = '123ADMIN'
+                return postIdTokenToSessionLogin('/loginUser/', idToken, csrfToken);
+            });
         },
         signInFailure: function(error) {
             // Some unrecoverable error occurred during sign-in.
@@ -25,7 +31,7 @@ var firebaseUIConfig = {
         uiShown: function() {
             // The widget is rendered.
             // Hide the loader.
-            document.getElementById('loader').style.display = 'none';
+            document.getElementById('s-loader').style.display = 'none';
         }
     },
     signInSuccessUrl: '/home/',
@@ -52,47 +58,47 @@ if (!isNull(document.querySelector('#firebaseui-auth-container'))) {
 }
 
 // Track Auth State
-var fbInitApp = function () {
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            // User is signed in.
-            var displayName = user.displayName;
-            var email = user.email;
-            var emailVerified = user.emailVerified;
-            var photoURL = user.photoURL;
-            var uid = user.uid;
-            var phoneNumber = user.phoneNumber;
-            var providerData = user.providerData;
-            user.getIdToken().then(function (accessToken) {
-                document.getElementById('user-profile-picture-input').src = photoURL;
-                document.getElementById('username-input').value = displayName;
-                document.getElementById('user-email-input').value = email;
-                document.getElementById('user-data-provider-input').value = providerData[0].providerId;
-                //   document.getElementById('account-details').textContent = JSON.stringify({
-                //     displayName: displayName,
-                //     email: email,
-                //     emailVerified: emailVerified,
-                //     phoneNumber: phoneNumber,
-                //     photoURL: photoURL,
-                //     uid: uid,
-                //     accessToken: accessToken,
-                //     providerData: providerData
-                //   }, null, '  ');
-            });
-        } else {
-            // User is signed out.
-            document.getElementById('user-profile-picture-input').src = "../static/images/manifest/icon-192x192.png";
-            document.getElementById('username-input').value = "-";
-            document.getElementById('user-email-input').value = "-";
-            document.getElementById('user-data-provider-input').value = "-";
-        }
-    }, function (error) {
-        console.log(error);
-    });
-};
+// var fbInitApp = function () {
+//     firebase.auth().onAuthStateChanged(function (user) {
+//         if (user) {
+//             // User is signed in.
+//             var displayName = user.displayName;
+//             var email = user.email;
+//             var emailVerified = user.emailVerified;
+//             var photoURL = user.photoURL;
+//             var uid = user.uid;
+//             var phoneNumber = user.phoneNumber;
+//             var providerData = user.providerData;
+//             user.getIdToken().then(function (accessToken) {
+//                 document.getElementById('user-profile-picture-input').src = photoURL;
+//                 document.getElementById('username-input').value = displayName;
+//                 document.getElementById('user-email-input').value = email;
+//                 document.getElementById('user-data-provider-input').value = providerData[0].providerId;
+//                 //   document.getElementById('account-details').textContent = JSON.stringify({
+//                 //     displayName: displayName,
+//                 //     email: email,
+//                 //     emailVerified: emailVerified,
+//                 //     phoneNumber: phoneNumber,
+//                 //     photoURL: photoURL,
+//                 //     uid: uid,
+//                 //     accessToken: accessToken,
+//                 //     providerData: providerData
+//                 //   }, null, '  ');
+//             });
+//         } else {
+//             // User is signed out.
+//             document.getElementById('user-profile-picture-input').src = "../static/images/manifest/icon-192x192.png";
+//             document.getElementById('username-input').value = "-";
+//             document.getElementById('user-email-input').value = "-";
+//             document.getElementById('user-data-provider-input').value = "-";
+//         }
+//     }, function (error) {
+//         console.log(error);
+//     });
+// };
 
-if (!isNull(document.querySelector('.s-user-info'))) {
-    window.addEventListener('load', function () {
-        fbInitApp()
-    });
-}
+// if (!isNull(document.querySelector('.s-user-info'))) {
+//     window.addEventListener('load', function () {
+//         fbInitApp()
+//     });
+// }

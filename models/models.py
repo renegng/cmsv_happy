@@ -10,21 +10,45 @@ db = SQLAlchemy()
 # **************************************************************************
 
 # User Information Class
-class UserInfo(db.Model):
+class UserInfo(UserMixin, db.Model):
     __tablename__ = 'user_info'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), unique=True, nullable=False)
+    uid = db.Column(db.String(255), unique=True, nullable=False)
+    email = db.Column(db.String(255), unique=False, nullable=False)
     name = db.Column(db.String(300), unique=False, nullable=False)
     phonenumber = db.Column(db.String(20), unique=False, nullable=True)
-    cmsvuser = db.Column(db.String(15), unique=False, nullable=False)
+    cmsvuserid = db.Column(db.String(15), unique=False, nullable=False)
     notifications = db.Column(db.Boolean, unique=False, nullable=True)
     enabled = db.Column(db.Boolean, unique=False, nullable=True, default=True)
     datecreated = db.Column(db.DateTime, unique=False, nullable=False, index=True, default=datetime.utcnow)
     roles = db.relationship('UserXRole', secondary='user_x_role', lazy='subquery', back_populates='user_info')
 
+    # UserClass properties and methods
+    def __init__(self):
+        # Properties required by Flask-Login
+        self._is_active = False
+        self._is_authenticated = False
+
+    @property
+    def is_active(self):
+        return self._is_active
+
+    @is_active.setter
+    def is_active(self, val):
+        self._is_active = val
+
+    @property
+    def is_authenticated(self):
+        return self._is_authenticated
+
+    @is_authenticated.setter
+    def is_authenticated(self, val):
+        self._is_authenticated = val
+
     def __repr__(self):
         return jsonify(
             id = self.id,
+            uid = self.uid,
             email = self.email,
             name = self.name,
             phonenumber = self.phonenumber,
@@ -33,6 +57,10 @@ class UserInfo(db.Model):
             enabled = self.enabled,
             roles = self.roles
         )
+    
+    # Method required by Flask-Login
+    def get_id(self):
+        return self.uid
 
 
 # Role Class
@@ -40,14 +68,14 @@ class UserRole(db.Model):
     __tablename__ = 'user_role'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True, nullable=False)
-    enable = db.Column(db.Boolean, unique=False, nullable=True, default=True)
+    enabled = db.Column(db.Boolean, unique=False, nullable=True, default=True)
     users = db.relationship('UserXRole', secondary='user_x_role', lazy='subquery', back_populates='user_role')
 
     def __repr__(self):
         return jsonify(
             id = self.id,
             name = self.name,
-            enabled = self.enable,
+            enabled = self.enabled,
             users = self.users
         )
 

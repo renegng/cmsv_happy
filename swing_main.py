@@ -1,10 +1,11 @@
 import firebase_admin
 
-from flask import Flask, render_template
+from flask import Flask, flash, render_template
 from flask_login import LoginManager
 from models.models import db as db
 from views.home import home as home_view
 from views.seo import seo as seo_view
+from models.models import UserInfo
 
 # Enables Instance Folder Configuration (instance_relative_config=True) 
 app = Flask(__name__, instance_relative_config=True)
@@ -23,11 +24,18 @@ fba = firebase_admin.initialize_app()
 # Enable Flask-Login
 lim = LoginManager()
 lim.init_app(app)
-lim.login_view = 'welcome'
+lim.login_view = 'home_view._welcome'
 
 @lim.user_loader
-def load_user(id):
-    pass
+def load_user(uid):
+    if uid is not None:
+        return UserInfo.query.filter(UserInfo.uid == uid).first()
+    return None
+
+@lim.unauthorized_handler
+def unauthorized():
+    flash('Debes Iniciar sesión o Registrarte para ingresar.', 'error')
+    return redirect(url_for('home_view._welcome'))
 
 # Home
 app.register_blueprint(home_view)
