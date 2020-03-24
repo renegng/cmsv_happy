@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, url_for, jsonify
 
 home = Blueprint('home', __name__, template_folder='templates', static_folder='static')
 
@@ -12,8 +12,14 @@ def _welcome():
 
 @home.route('/loginUser/', methods=['POST'])
 def _loginUser():
-    print('LLEGAMOS A LOGIN USER!')
+    print('LoginUser accessed!')
     print(request.json['idToken'])
+    response = jsonify({'status': 'success'})
+    return response
+
+@home.route('/home/')
+def _home():
+    print('Home accessed!')
     return render_template('acercade.html')
 
 @home.route('/acercade/')

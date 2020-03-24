@@ -388,3 +388,45 @@ window.addEventListener('beforeinstallprompt', (e) => {
         snackbar.open();
     }
 });
+
+// Fetch API
+export function getFetch(url){
+    fetch(url)
+    .then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+            return Promise.resolve(response)
+        } else {
+            return Promise.reject(new Error(response.statusText))
+        }
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log('Request succeeded with JSON response', data);
+    })
+    .catch(function (error) {
+        console.log('Request failed', error);
+    });
+}
+
+export function postFetch(url, data){
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        console.log('Request succeeded with JSON response', data);
+    })
+    .catch(function (error) {
+        console.log('Request failed', error);
+    });
+}
+

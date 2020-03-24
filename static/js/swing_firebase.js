@@ -1,4 +1,5 @@
 import { isNull } from 'util';
+import { postFetch } from './swing_app';
 
 // FirebaseUI config.
 var firebaseUIConfig = {
@@ -14,10 +15,13 @@ var firebaseUIConfig = {
             // Return type determines whether we continue the redirect automatically
             // or whether we leave that to developer to handle.
 
-            console.log('HERE WE GO!')
+            console.log('SignIn Success Callback');
             return user.getIdToken().then(idToken => {
-                const csrfToken = '123ADMIN'
-                return postIdTokenToSessionLogin('/loginUser/', idToken, csrfToken);
+                var dataJSON = {
+                    "idToken": idToken,
+                    "csrfToken": "ADMIN123654"
+                };
+                return postFetch('/loginUser/', dataJSON);
             });
         },
         signInFailure: function(error) {
