@@ -1,3 +1,6 @@
+import logging
+
+from . import auth
 from flask import Blueprint, redirect, render_template, request, url_for, jsonify
 
 home = Blueprint('home', __name__, template_folder='templates', static_folder='static')
@@ -12,14 +15,18 @@ def _welcome():
 
 @home.route('/loginUser/', methods=['POST'])
 def _loginUser():
-    print('LoginUser accessed!')
-    print(request.json['idToken'])
-    response = jsonify({'status': 'success'})
+    logging.debug('** SWING_CMS ** - LoginUser accessed')
+    # First, we retrieve the JWT idToken from the client request and decode it
+    idToken = request.json['idToken']
+    decoded_token = auth.verify_id_token(idToken)
+    uid = decoded_token['uid']
+
+    response = jsonify({ 'status': 'success' })
     return response
 
 @home.route('/home/')
 def _home():
-    print('Home accessed!')
+    logging.debug('** SWING_CMS ** - Home accessed')
     return render_template('acercade.html')
 
 @home.route('/acercade/')

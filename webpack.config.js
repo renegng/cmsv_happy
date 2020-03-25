@@ -42,7 +42,7 @@ module.exports = [{
         // main: ["./static/js/swing_app.js"]
         main: [
             "@babel/polyfill",
-            "./instance/js/swing_firebase-api-key.js",
+            "./instance/js/swing_firebase-api-init.js",
             "./static/js/swing_firebase.js",
             "./static/js/lazysizes.min.js",
             "./static/js/swing_app.js"
