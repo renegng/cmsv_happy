@@ -22,7 +22,7 @@ lim.login_view = 'home_view._welcome'
 @lim.user_loader
 def load_user(uid):
     if uid is not None:
-        return UserInfo.query.filter(UserInfo.uid == uid).first()
+        return UserInfo.query.filter_by(uid = uid).first()
     return None
 
 @lim.unauthorized_handler

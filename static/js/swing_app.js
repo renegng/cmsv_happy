@@ -403,10 +403,10 @@ export function getFetch(url){
         return response.json();
     })
     .then((data) => {
-        console.log('Request succeeded with JSON response', data);
+        console.log('Request succeeded with JSON response: ', data);
     })
     .catch(function (error) {
-        console.log('Request failed', error);
+        console.log('Request failed: ', error);
     });
 }
 
@@ -423,10 +423,10 @@ export function postFetch(url, data){
         return response.json();
     })
     .then((data) => {
-        console.log('Request succeeded with JSON response', data);
+        console.log('Request succeeded with JSON response: ', data);
     })
     .catch(function (error) {
-        console.log('Request failed', error);
+        console.log('Request failed: ', error);
     });
 }
 

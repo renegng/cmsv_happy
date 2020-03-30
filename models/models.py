@@ -17,11 +17,11 @@ class UserInfo(UserMixin, db.Model):
     email = db.Column(db.String(255), unique=False, nullable=False)
     name = db.Column(db.String(300), unique=False, nullable=False)
     phonenumber = db.Column(db.String(20), unique=False, nullable=True)
-    cmsvuserid = db.Column(db.String(15), unique=False, nullable=False)
+    cmsvuserid = db.Column(db.String(20), unique=False, nullable=False)
     notifications = db.Column(db.Boolean, unique=False, nullable=True)
     enabled = db.Column(db.Boolean, unique=False, nullable=True, default=True)
     datecreated = db.Column(db.DateTime, unique=False, nullable=False, index=True, default=datetime.utcnow)
-    roles = db.relationship('UserXRole', secondary='user_x_role', lazy='subquery', back_populates='user_info')
+    roles = db.relationship('UserXRole', lazy='subquery', back_populates='user_info')
 
     # UserClass properties and methods
     def __init__(self):
@@ -69,7 +69,7 @@ class UserRole(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True, nullable=False)
     enabled = db.Column(db.Boolean, unique=False, nullable=True, default=True)
-    users = db.relationship('UserXRole', secondary='user_x_role', lazy='subquery', back_populates='user_role')
+    users = db.relationship('UserXRole', lazy='subquery', back_populates='user_role')
 
     def __repr__(self):
         return jsonify(
