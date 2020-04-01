@@ -42,7 +42,7 @@ def createLoginSession(user):
         return jsonify({ 'status': 'error' })
 
 # Creates a Firebase Cookie Session instance
-def createCookieSession(idToken, redirect = False, redirectUrl = None):
+def createCookieSession(idToken, cmd = None, action = None):
     try:
         # Set session expiration to 14 days.
         expires_in = datetime.timedelta(days = 14)
@@ -57,8 +57,8 @@ def createCookieSession(idToken, redirect = False, redirectUrl = None):
         # Create an HTTP Response with a JSON Success Status and attach the cookie to it.
         jsonData = {
             'status': 'success',
-            'redirect': redirect,
-            'URL': redirectUrl
+            'cmd': cmd,
+            'action': action
         }
         response = jsonify(jsonData)
 

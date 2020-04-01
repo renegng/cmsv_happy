@@ -46,7 +46,7 @@ def _loginUser():
         createLoginSession(user)
         
         # Return Session Cookie
-        response = createCookieSession(idToken, True, '/terminosdelservicio/')
+        response = createCookieSession(idToken, 'redirectURL', '/terminosdelservicio/')
         return response
 
     except Exception as e:

@@ -425,8 +425,8 @@ export function postFetch(url, postData){
     })
     .then((data) => {
         console.log('Request succeeded with JSON response: ', data);
-        if (data.redirect) {
-            window.location.assign(data.URL);
+        if (data.cmd == 'redirectURL') {
+            window.location.assign(data.action);
         }
     })
     .catch(function (error) {
