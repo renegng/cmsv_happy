@@ -5,23 +5,13 @@ import { postFetch } from './swing_app';
 var firebaseUIConfig = {
     callbacks: {
         signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            var user = authResult.user;
-            // var credential = authResult.credential;
-            // var isNewUser = authResult.additionalUserInfo.isNewUser;
-            // var providerId = authResult.additionalUserInfo.providerId;
-            // var operationType = authResult.operationType;
-            // 
-            // Do something with the returned AuthResult.
-            // Return type determines whether we continue the redirect automatically
-            // or whether we leave that to developer to handle.
-
-            console.log('SignIn Success Callback');
-            return user.getIdToken().then(idToken => {
-                var dataJSON = {
+            const user = authResult.user;
+            user.getIdToken().then(idToken => {
+                var postData = {
                     "idToken": idToken,
                     "csrfToken": "ADMIN123654"
                 };
-                return postFetch('/loginUser/', dataJSON);
+                postFetch('/loginUser/', postData);
             });
         },
         signInFailure: function(error) {

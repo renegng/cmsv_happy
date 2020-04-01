@@ -12,4 +12,4 @@ from swing_main import app as application
 # You could use a random generated string like:
 #   python -c 'import os; print(os.urandom(16))'
 #
-application.secret_key = '110707022020'.encode('utf8')
+application.secret_key = 'f63369280e32b1d90f783af2'.encode('utf8')

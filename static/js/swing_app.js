@@ -410,20 +410,24 @@ export function getFetch(url){
     });
 }
 
-export function postFetch(url, data){
+export function postFetch(url, postData){
     fetch(url, {
         method: 'POST',
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        credentials: 'include',
+        body: JSON.stringify(postData)
     })
     .then((response) => {
         return response.json();
     })
     .then((data) => {
         console.log('Request succeeded with JSON response: ', data);
+        if (data.redirect) {
+            window.location.assign(data.URL);
+        }
     })
     .catch(function (error) {
         console.log('Request failed: ', error);
