@@ -62,10 +62,12 @@ def createCookieSession(idToken, cmd = None, action = None):
         }
         response = jsonify(jsonData)
 
-        # Cookies for Development
-        # response.set_cookie('cmsv-happy-session', session_cookie, expires = expires, httponly = True)
-        # Cookies for Production
-        response.set_cookie('cmsv-happy-session', session_cookie, expires = expires, httponly = True, samesite = 'Lax', secure = True)
+        if app.config['ENV'] == 'development':
+            # Cookies for Development
+            response.set_cookie('cmsv-happy-session', session_cookie, expires = expires, httponly = True)
+        else:
+            # Cookies for Production
+            response.set_cookie('cmsv-happy-session', session_cookie, expires = expires, httponly = True, samesite = 'Lax', secure = True)
 
         return response
     except Exception as e:
