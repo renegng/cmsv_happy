@@ -1,14 +1,17 @@
+import sys, os
+
 from flask import Flask
 from flask_migrate import Migrate
 from models import *
-import sys
+from pathlib import Path
 
 # Enables Flask instance 
 app = Flask(__name__)
 
 # Configuration file from environment variable
-# Set env variable: $ export SWING_INSTANCE_MODELS_CONFIGFILE=/path
-app.config.from_envvar('SWING_INSTANCE_MODELS_CONFIGFILE')
+sys.path.append((Path(__file__).parent.parent.resolve() / 'instance').as_posix())
+from config_models import configType as cfgmodels
+app.config.from_object(cfgmodels['development'])
 
 # Enable instance of SQLAlchemy
 db.init_app(app)
@@ -35,7 +38,6 @@ def main(argv):
             # Flask Migrate commands
             elif argv[1] == "migrate":
                 print("For Migrate-Alembic commands execute the following:")
-                print("$ export SWING_INSTANCE_MODELS_CONFIGFILE=/path/to/config/file.py")
                 print("$ export FLASK_APP=/path/to/ddl.py")
                 print("$ flask db [init | migrate | upgrade | ...]")
                 pass

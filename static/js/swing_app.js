@@ -1,8 +1,11 @@
 // import AOS from 'aos';
+import 'core-js';
+import 'regenerator-runtime/runtime';
 import { MDCDrawer } from '@material/drawer';
 import { MDCFloatingLabel } from '@material/floating-label';
 import { MDCIconButtonToggle } from '@material/icon-button';
 import { MDCLineRipple } from '@material/line-ripple';
+import { MDCList } from "@material/list";
 import { MDCMenu, Corner } from '@material/menu';
 import { MDCNotchedOutline } from '@material/notched-outline';
 import { MDCRipple } from '@material/ripple';

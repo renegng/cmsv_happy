@@ -16,8 +16,9 @@ class UserInfo(UserMixin, db.Model):
     uid = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=False, nullable=False)
     name = db.Column(db.String(300), unique=False, nullable=False)
+    cmuserid = db.Column(db.String(20), unique=False, nullable=False)
+    avatar = db.Column(db.String(16), unique=False, nullable=True)
     phonenumber = db.Column(db.String(20), unique=False, nullable=True)
-    cmsvuserid = db.Column(db.String(20), unique=False, nullable=False)
     notifications = db.Column(db.Boolean, unique=False, nullable=True)
     enabled = db.Column(db.Boolean, unique=False, nullable=True, default=True)
     datecreated = db.Column(db.DateTime, unique=False, nullable=False, index=True, default=datetime.utcnow)
@@ -51,8 +52,8 @@ class UserInfo(UserMixin, db.Model):
             uid = self.uid,
             email = self.email,
             name = self.name,
+            cmuserid = self.cmuserid,
             phonenumber = self.phonenumber,
-            cmsvuser = self.cmsvuser,
             notifications = self.notifications,
             enabled = self.enabled,
             roles = self.roles

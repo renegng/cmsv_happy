@@ -1,9 +1,9 @@
 {% extends 'layout_main.html' %} {% block topbar %}
-<header class="s-header mdc-top-app-bar">
+<header class="s-header mdc-top-app-bar mdc-top-app-bar--fixed">
     <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="menu mdc-top-app-bar__navigation-icon mdc-icon-button">
-                <i class="material-icons mdc-icon-button__icon">menu</i>
+            <button class="menu material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">
+                menu
             </button>
             <span class="mdc-top-app-bar__title topAppBar-title">
                 <a href="/">HappY</a>
@@ -50,13 +50,13 @@
     </div>
 </header>
 <aside class="s-nav mdc-drawer mdc-drawer--modal">
+    <div class="mdc-drawer__header">
+        <img id="logo-nav-drawer" src="{{ url_for('static', filename='images/manifest/HappY.svg') }}"
+            alt="Logo HappY" />
+        <h3 class="mdc-drawer__title">HappY</h3>
+        <h6 class="mdc-drawer__subtitle">Ciudad Mujer El Salvador</h6>
+    </div>
     <div class="mdc-drawer__content">
-        <div class="mdc-drawer__header">
-            <img id="logo-nav-drawer" src="{{ url_for('static', filename='images/manifest/HappY.svg') }}"
-                alt="Logo HappY" />
-            <h3 class="mdc-drawer__title">HappY</h3>
-            <h6 class="mdc-drawer__subtitle">Ciudad Mujer El Salvador</h6>
-        </div>
         <nav class="mdc-drawer__list mdc-list">
             <a class="mdc-list-item" href="/">
                 <i class="material-icons mdc-list-item__graphic" aria-hidden="true">360</i>Entrada

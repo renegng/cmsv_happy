@@ -7,35 +7,56 @@ $mdc-theme-on-surface: #000000;
 $mdc-theme-background: #729a00;
 $mdc-theme-on-background: #000000;
 
-// $mdc-typography-font-family: 'Cinzel', 'Roboto', 'Open Sans', sans-serif;
-// $swn-typography-parallax: 'Cinzel', 'Lato', sans-serif;
 $mdc-typography-font-family: 'Roboto', 'Open Sans', sans-serif;
 $swn-typography-parallax: 'Lato', sans-serif;
 
-@import "aos/src/sass/aos";
-@import "@material/animation/functions";
-@import "@material/button/mdc-button";
-@import "@material/card/mdc-card";
-@import "@material/drawer/mdc-drawer";
-@import "@material/fab/mdc-fab";
-@import "@material/floating-label/mdc-floating-label";
-@import "@material/icon-button/mdc-icon-button";
-@import "@material/image-list/mdc-image-list";
-@import "@material/layout-grid/mdc-layout-grid";
-@import "@material/line-ripple/mdc-line-ripple";
-@import "@material/list/mdc-list";
-@import "@material/menu/mdc-menu";
-@import "@material/menu-surface/mdc-menu-surface";
-@import "@material/notched-outline/mdc-notched-outline";
-@import "@material/snackbar/mdc-snackbar";
-@import "@material/tab/mdc-tab";
-@import "@material/tab-bar/mdc-tab-bar";
-@import "@material/tab-indicator/mdc-tab-indicator";
-@import "@material/tab-scroller/mdc-tab-scroller";
-@import "@material/textfield/helper-text/mdc-text-field-helper-text";
-@import "@material/textfield/mdc-text-field";
-@import "@material/top-app-bar/mdc-top-app-bar";
-@import "@material/typography/mdc-typography";
+@use "aos/src/sass/aos";
+@use "@material/animation";
+@use "@material/button";
+@use "@material/card";
+@use "@material/drawer";
+@use "@material/fab";
+@use "@material/floating-label";
+@use "@material/icon-button";
+@use "@material/image-list";
+@use "@material/layout-grid";
+@use "@material/line-ripple";
+@use "@material/list";
+@use "@material/menu";
+@use "@material/menu-surface";
+@use "@material/notched-outline";
+@use "@material/ripple";
+@use "@material/snackbar";
+@use "@material/tab";
+@use "@material/tab-bar";
+@use "@material/tab-indicator";
+@use "@material/tab-scroller";
+@use "@material/textfield/helper-text";
+@use "@material/textfield";
+@use "@material/top-app-bar";
+@use "@material/typography";
+@use "material-components-web/material-components-web";
+
+@include drawer.core-styles;
+@include button.core-styles;
+@include card.core-styles;
+@include drawer.core-styles;
+@include fab.core-styles;
+@include floating-label.core-styles;
+@include icon-button.core-styles;
+@include image-list.core-styles;
+@include line-ripple.core-styles;
+@include list.core-styles;
+@include menu.core-styles;
+@include menu-surface.core-styles;
+@include notched-outline.core-styles;
+@include ripple.core-styles;
+@include snackbar.core-styles;
+@include tab.core-styles;
+@include tab-bar.core-styles;
+@include tab-indicator.core-styles;
+@include tab-scroller.core-styles;
+@include textfield.core-styles;
 
 /* *******************
 - Reusable Media Queries Sentences
@@ -69,9 +90,9 @@ body {
 
 // Main Layout
 .s-nav {
-  @include mdc-drawer-surface-fill-color(surface);
-  @include mdc-drawer-item-text-ink-color(on-surface);
-  @include mdc-drawer-width(20rem);
+  @include drawer.surface-fill-color($mdc-theme-surface);
+  @include drawer.item-text-ink-color($mdc-theme-on-surface);
+  @include drawer.width(20rem);
 
   #logo-nav-drawer {
     width: 9rem;
@@ -262,8 +283,8 @@ body {
 
 .footer-followus__list {
   .mdc-list {
-    @include mdc-list-item-primary-text-ink-color(surface);
-    @include mdc-list-item-graphic-ink-color(surface)
+    @include list.item-graphic-ink-color(surface);
+    @include list.item-primary-text-ink-color(surface);
   }
   a {
     color: inherit;
@@ -274,8 +295,8 @@ body {
 
 .footer-contactus__list {
   .mdc-list {
-    @include mdc-list-item-primary-text-ink-color(surface);
-    @include mdc-list-item-graphic-ink-color(surface)
+    @include list.item-primary-text-ink-color(surface);
+    @include list.item-graphic-ink-color(surface);
   }
   a {
     color: inherit;
@@ -292,9 +313,9 @@ body {
 
 // Navigation Bar
 .topAppBar-button {
-  @include mdc-button-container-fill-color(secondary);
-  @include mdc-button-ink-color(on-secondary);
-  @include mdc-states(on-secondary);
+  @include button.container-fill-color(secondary);
+  @include button.ink-color(on-secondary);
+  @include ripple.states(on-secondary);
 }
 
 .topAppBar-title {
@@ -310,21 +331,21 @@ body {
 // Laptops and Computers
 @media all and (min-width: 50em) {
   .s-mdc-image-list {
-    @include mdc-image-list-standard-columns(5);
+    @include image-list.standard-columns(5);
   }
 }
 
 // Tablets
 @media all and (max-width: 49.99em) {
   .s-mdc-image-list {
-    @include mdc-image-list-standard-columns(4);
+    @include image-list.standard-columns(4);
   }
 }
 
 // Smartphones
 @media all and (max-width: 39.99em) {
   .s-mdc-image-list {
-    @include mdc-image-list-standard-columns(3);
+    @include image-list.standard-columns(3);
   }
 }
 
@@ -342,7 +363,7 @@ body {
 .s-mdc-card__unit {
   margin: 1rem;
   width: 20rem;
-  //@include mdc-card-corner-radius(1rem);
+  @include card.shape-radius(1rem);
 
   .s-mdc-card__unit-link {
     color: inherit;
@@ -975,7 +996,7 @@ body {
 }
 
 .s-article__text--show {
-  animation: mdc-animation-enter(s-fade-in, 350ms);
+  animation: animation.enter(s-fade-in, 350ms);
 }
 
 .s-article__text--hidden {
@@ -1066,7 +1087,7 @@ body {
 .s-user-info {
   .s-mdc-text-fields {
     width: 25rem;
-    @include mdc-text-field-ink-color(black);
+    @include textfield.ink-color(black);
   }
 }
 
